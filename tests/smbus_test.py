@@ -1,6 +1,7 @@
 import smbus
 
-bus = smbus.SMBus(1)  # 0 = /dev/i2c-0 , 1 = /dev/i2c-1
+bus = smbus.SMBus()  # 0 = /dev/i2c-0 , 1 = /dev/i2c-1
+bus.open(1)
 
 #SMBus functions
 
@@ -48,3 +49,5 @@ vals = [0x20, 0x30, 0x40, 0x50]
 #bus.read_i2c_block_data(0x20, 0x30)
 
 #bus.write_i2c_block_data(0x20, 0x30, vals)
+
+bus.close()
