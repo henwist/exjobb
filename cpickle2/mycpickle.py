@@ -1,5 +1,8 @@
-import framework
+import sys
+sys.path.append('../src_busframework/')
+
 import sqlite3
+import framework
 
 conn = sqlite3.connect('sensor.db')
 
@@ -29,9 +32,9 @@ bsensor = BMP280()
 frame = framework.Framework(bus_type='i2c', bus_nr=1, bus_instance=None)
 bsensor.tie_framework(frame, 'i2c')
 
-print "bsensor temp: ", bsensor.read_temperature()
+print "bsensor temp: {0:0.2f}".format(bsensor.read_temperature())
 
-print "bsensor press: ", bsensor.read_pressure()
+print "bsensor press: {0:0.2f}".format(bsensor.read_pressure())
 
 print "bsensor alt: {0:0.2f}".format(bsensor.read_altitude(sealevel_pa=100740))
 
