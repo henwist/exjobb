@@ -3,20 +3,36 @@ from sklearn.ensemble import RandomForestRegresssor as rf
 import sqlite3
 import datetime
 
-def main():
 
-if __name__ == '__main__':
-    main()
+class visitor_counter:
+    conn
+    cursor
+
+    def __init__(db='placeholder.db'):
+        self.conn = sqlite3.connect(db)
+        self.cursor = self.conn.cursor
+
+    def main():
+
+    if __name__ == '__main__':
+        main()
 
 
- def getPrediction():
-     model = getData()
-     rf.fit(model)
-     return rf.predict()
+     def getPrediction():
+         model = getData()
+         rf.fit(model)
+         return rf.predict()
 
- def getData():
-     conn = sqlite3.connect('placeholder.db')
-     cursor = conn.cursor
+     def getData():
+         curTime = datetime.datetime.now().time()
+         self.cursor.execute('''SELECT * WHERE time<=? || time>?''', curTime, curTime - (0, 10, 0, 0, 0))
 
-     curTime = datetime.datetime.now().time()
-     c.execute('''SELECT * WHERE time<=? || time>?''', curTime, curTime - (0, 10, 0, 0, 0))
+
+     def insertRow():
+         values = sensors.read()
+         self.cursor.execute('''INSERT INTO visitor_data VALUES (?,?,?)''', values)
+
+
+     def initDb(name):
+
+         self.cursor.execute('''CREATE TABLE visitor_data(?, ?)''')
