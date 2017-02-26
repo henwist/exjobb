@@ -87,3 +87,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+#Databases used in development - to be removed when distributing this repository as public
+*.db
+
