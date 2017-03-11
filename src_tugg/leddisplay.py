@@ -5,7 +5,7 @@ class Leddisplay():
 	"""Class for writing numbers (integer as well as float) to 
 	a led display segmented as 7 segments plus decimal point on
 	a SPI bus using spidev class."""
-	def __init__(self, spidev, sleep_ms):
+	def __init__(self, spidev, sleep_between_digits_ms=1000, clear_display_after_ms=5000):
 		self._spidev = spidev
 		self._spidev.max_speed_hz = 400000 #400 kHz
 		self._segment_a = 1<<1
@@ -31,7 +31,8 @@ class Leddisplay():
 		self._numdict['9'] = self._segment_a | self._segment_b | self._segment_c | self._segment_f | self._segment_g
 		self._numdict['.'] = self._segment_dp
 		self._numdict['-'] = self._segment_g
-		self._numdict['u'] = self._segment_c | self._segment_d | self._segment_e
+		self._numdict['u'] = self._segment_c | self._segment_d | self._segment_e #used for differentiating between to consecutive digits of the same kind.
+		self._numdict['clear'] = 0
 
 		self._minimum_number = decimal.Decimal('0.0000001')
 		self._minimum_number_neg = decimal.Decimal('-0.0000001')
@@ -39,7 +40,8 @@ class Leddisplay():
 		self._num_list = []
 		self._remainder_list = []
 	
-		self._sleep_ms = sleep_ms
+		self._sleep_between_digits_ms = sleep_between_digits_ms
+		self._clear_display_after_ms = clear_display_after_ms
 
 		decimal.getcontext().prec = 7
 
@@ -59,7 +61,8 @@ class Leddisplay():
 
 			latest_printed_char = n
 			self._spidev.xfer2([self._numdict[n]])
-			time.sleep(self._sleep_ms)
+			time.sleep(self._sleep_between_digits_ms/1000)
+
 			print "n:", n
 
 	def _conditionally_prepare_remainder(self, whole_integral):
@@ -87,8 +90,11 @@ class Leddisplay():
                 else:
                         self._print_to_display(self._remainder_list)
 
+	def _clear_display(self):
+                time.sleep(self._clear_display_after_ms/1000)
+                self._spidev.xfer2([self._numdict['clear']])
 
-	def print_num(self, number):
+	def printnum(self, number):
 		"""Writes out a number to a led display. number can be
 		a float as well as an integer in base 10. Up to seven
 		digits after decimal (dot) will be written to bus. If 
@@ -109,6 +115,7 @@ class Leddisplay():
 
 		self._conditionally_print_number(whole_integral, remainder)
 
+		self._clear_display()
 
 		print "remainder_list", self._remainder_list
 
