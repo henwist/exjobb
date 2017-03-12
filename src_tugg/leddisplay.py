@@ -33,6 +33,7 @@ class Leddisplay():
 		self._numdict['-'] = self._segment_g
 		self._numdict['u'] = self._segment_c | self._segment_d | self._segment_e #used for differentiating between to consecutive digits of the same kind.
 		self._numdict['clear'] = 0
+		self._numdict['E'] = self._segment_a | self._segment_d | self._segment_e | self._segment_f | self._segment_g #for exponent
 
 		self._minimum_number = decimal.Decimal('0.0000001')
 		self._minimum_number_neg = decimal.Decimal('-0.0000001')
