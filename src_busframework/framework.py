@@ -98,6 +98,7 @@ class Framework():
 
   def get_modules(self):
       self._c.execute('''SELECT name FROM modules''')
+      #self._c.commit()
       return self._c.fetchall()
 
 
