@@ -96,10 +96,11 @@ class Framework():
 
 
 
-  def getModules(self):
-       #Detta returnerar alla värden i första kolumnen som en sträng. Vi kanske behöver splita strängen för att göra så att de enskilda namnen hamnar för sig själva.
-      return self._c.getstring(0)
-      
+  def get_modules(self):
+      self._c.execute('''SELECT name FROM modules''')
+      return self._c.fetchall()
+
+
 
 
   def remove_all_sensor_modules_from_db(self,
@@ -116,8 +117,8 @@ class Framework():
 
 
 
-
-
+  def update_sensor_module(self, column, name, data):
+      self._c.execute('''UPDATE modules set %s = %s WHERE 'name' = %s''', column, data, name)
 
 
 
