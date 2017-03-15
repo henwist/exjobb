@@ -3,12 +3,12 @@ import time                                #Import time library
 GPIO.setmode(GPIO.BCM)                     #Set GPIO pin numbering 
 
 #right sensor seen from front of prototype
-#TRIG = 6                                  #Associate pin 23 to TRIG
-#ECHO = 13                                  #Associate pin 24 to ECHO
+TRIG = 6                                  #Associate pin 23 to TRIG
+ECHO = 13                                  #Associate pin 24 to ECHO
 
 #left  sensor seen from front of prototype
-TRIG = 19
-ECHO = 26
+#TRIG = 19
+#ECHO = 26
 
 print "Distance measurement in progress"
 
