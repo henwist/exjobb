@@ -11,4 +11,6 @@ class AbstractBus:
   def write(self):
    raise NotImplementedError("Class %s doesn't implement " %(self.__class__.__name__))
 
-
+  @abc.abstractmethod
+  def type(self):
+      raise NotImplementedError("Class %s doesn't implement " %(self.__class__.__name__))
