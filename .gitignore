@@ -91,3 +91,5 @@ ENV/
 #Databases used in development - to be removed when distributing this repository as public
 *.db
 
+#the trained model is large -no need to download that in development
+model/
